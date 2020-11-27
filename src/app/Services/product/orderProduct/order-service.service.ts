@@ -9,7 +9,7 @@ import {Observable} from 'rxjs';
 export class OrderServiceService {
 
     const
-    URL = 'http://b18e5634e8b2.ngrok.io/inventario/';
+    URL = 'https://b18e5634e8b2.ngrok.io/inventario/';
 
     constructor(private http: HttpClient) {
     }
