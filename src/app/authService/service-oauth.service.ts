@@ -4,7 +4,7 @@ import {HttpClient} from '@angular/common/http';
 import {UserProfile} from '../model/UserProfile';
 
 declare var gapi: any;
-const uri = 'http://b18e5634e8b2.ngrok.io/';
+const uri = 'https://b18e5634e8b2.ngrok.io/';
 
 @Injectable({
     providedIn: 'root'
