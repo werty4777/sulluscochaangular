@@ -64,6 +64,7 @@ export class ServiceOAuthService {
                 user => {
 
                     localStorage.setItem('gmail', 'true');
+                    // @ts-ignore
                     localStorage.setItem('token', JSON.stringify(user.xc.access_token));
                     this.user = user
                     this.handleAuthChange();
