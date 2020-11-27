@@ -1,0 +1,132 @@
+<div class="document active">
+    <div class="spreadSheetGroup">
+
+
+        <table class="shipToFrom">
+            <thead style="font-weight:bold">
+            <tr>
+                <th>Proveedor</th>
+                <th>Orden de Compra</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td contenteditable="false" style="width:50%" class="titulosproveedor">
+
+
+                    <div class="fieldTo">
+                        <br><span>RUC</span> <input type="text">
+
+                    </div>
+                    <div class="fieldTo">
+                        <br><span>Nombre</span> <input type="text">
+                    </div>
+                    <div class="fieldTo">
+                        <br><span>Direccion </span> <input type="text">
+                    </div>
+                    <div class="fieldTo">
+                        <br><span>Correo</span> <input type="text">
+                    </div>
+                    <div class="fieldTo">
+                        <br><span>Telefono/Cel</span> <input type="text">
+                    </div>
+
+
+                </td>
+                <td contenteditable="false" style="width:50%">
+                    <div class="fieldTime">
+
+                        <span>fecha</span><input type="date">
+
+                    </div>
+
+
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <hr style="visibility:hidden"/>
+
+
+        <table class="tableBorder">
+            <thead style="font-weight:bold">
+            <tr>
+                <th>Fecha de Entrega</th>
+                <th>Direccion de Entrega</th>
+                <th>Moneda</th>
+                <th>Cond Pago</th>
+                <th>Form Pago</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td contenteditable="false" style="width:20%">
+                    <input type="date">
+                </td>
+                <td contenteditable="false" style="width:20%">
+                    <input type="text">
+                </td>
+                <td contenteditable="false" style="width:20%">
+                    <select style="width: 100%">
+                        <option>PEN</option>
+                        <option>USD</option>
+
+                    </select>
+                </td>
+                <td contenteditable="false" style="width:20%">
+                    <input type="text">
+                </td>
+                <td contenteditable="false" style="width:20%">
+                    <input type="text">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+
+        <table mat-table [dataSource]="dataSource" class="proposedWork" width="auto" style="margin-top:20px">
+
+
+            <ng-container [matColumnDef]="col" *ngFor="let col of displayedFields;let i=index"  style="text-align:center">
+                <th mat-header-cell *matHeaderCellDef >{{displayedHead[i]}}</th>
+                <td  class="fieldTo"  mat-cell *matCellDef="let element" contenteditable="false">
+
+                    <input *ngIf="i!=4;else sel"   type="text"  [formControl]="element.get(col)">
+
+                <ng-template #sel>
+                    <select  style="width: 100%" [formControl]="element.get(col)" >
+                        <option>PEN</option>
+                        <option>USD</option>
+
+                    </select>
+                </ng-template>
+
+                </td>
+
+
+            </ng-container>
+            <ng-container matColumnDef="delete">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element;let i=index;" >
+                    <button arrow-div mat-button (click)="delete(i)">delete</button>
+                </td>
+            </ng-container>
+
+
+
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns "></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+
+
+
+        </table>
+
+        <input (click)="datos()" type="button" value="x">
+
+
+
+    </div>
+</div>
