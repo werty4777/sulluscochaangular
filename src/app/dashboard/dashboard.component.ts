@@ -185,11 +185,13 @@ export class DashboardComponent implements OnInit {
                     this.cardService.getCountRequerimientos().subscribe(value3 => {
 
 
-                        this.data = {
-
+                         this.data = {
+                            // @ts-ignore
                             req: <number>value3.data,
                             cantidad: <number>value2.data,
+                            // @ts-ignore
                             salida: <number>value1.data,
+                            // @ts-ignore
                             entrada: <number>value.data
 
 
