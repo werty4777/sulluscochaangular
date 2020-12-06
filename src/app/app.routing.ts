@@ -14,12 +14,12 @@ const routes: Routes = [
         redirectTo: 'home',
 
         pathMatch: 'full',
-        canActivate: [AuthGuardGuard]
+        canActivate: []
     },
     {
         path: 'login',
         component: LoginComponent,
-        canActivate:[LoginGuardGuard]
+        canActivate:[]
     },
 
     {
@@ -29,13 +29,13 @@ const routes: Routes = [
             path: '',
 
             loadChildren: './layouts/admin-layout/admin-layout.module#AdminLayoutModule',
-            canActivate: [AuthGuardGuard]
-        }], canActivate: [AuthGuardGuard]
+            canActivate: []
+        }], canActivate: []
     },
 
     {
         path: '**',
-        component: LoginComponent, canActivate: [AuthGuardGuard]
+        component: LoginComponent, canActivate: []
     },
 
 

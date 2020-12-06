@@ -19,6 +19,8 @@ import {MatTooltipModule} from '@angular/material/tooltip';
 import {MatSelectModule} from '@angular/material/select';
 import {ComponentsModule} from '../../components/components.module';
 import {HttpClientModule} from '@angular/common/http';
+import {RequerimientoComponent} from '../../requerimiento/requerimiento.component';
+import {MovimientosComponent} from '../../movimientos/movimientos.component';
 
 @NgModule({
     imports: [
@@ -42,6 +44,7 @@ import {HttpClientModule} from '@angular/common/http';
         IconsComponent,
         MapsComponent,
         NotificationsComponent,
+        RequerimientoComponent, MovimientosComponent
 
     ]
 })

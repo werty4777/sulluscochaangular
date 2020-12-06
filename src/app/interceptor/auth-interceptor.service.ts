@@ -36,8 +36,9 @@ export class AuthInterceptorService implements HttpInterceptor {
         }
         return next.handle(request).pipe(
             catchError((err: HttpErrorResponse) => {
-                alert(err.status);
-                if (err.status != 200) {
+                console.log(err)
+                let status=err.status;
+                if (  status==404  ) {
                     this.router.navigate(['/login']);
                     localStorage.removeItem('token');
                     localStorage.removeItem('gmail');

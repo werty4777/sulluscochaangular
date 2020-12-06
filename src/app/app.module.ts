@@ -10,17 +10,16 @@ import {ComponentsModule} from './components/components.module';
 
 import {AppComponent} from './app.component';
 
-import {AgmCoreModule} from '@agm/core';
-
 import {LoginComponent} from './login/login.component';
 import {GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from 'angularx-social-login';
-import {ServiceOAuthService} from './authService/service-oauth.service';
 import {AdminLayoutComponent} from './layouts/admin-layout/admin-layout.component';
-import {AuthInterceptorService} from './interceptor/auth-interceptor.service';
 import {OrdenCompraComponent} from './productos/orden-compra/orden-compra.component';
 import {MatTableModule} from '@angular/material/table';
 import {OrderServiceService} from './Services/product/orderProduct/order-service.service';
 import {CardsServiceService} from './Services/cards-service.service';
+import {UrlAPI} from './Services/urlAPI';
+import {AuthInterceptorService} from './interceptor/auth-interceptor.service';
+import { EntradaModalComponent } from './movimientos/entrada-modal/entrada-modal.component';
 
 const googlekey = '583458414138-95g5d9orqll8ldlc0p693kd25f24a883.apps.googleusercontent.com';
 
@@ -35,15 +34,14 @@ const googlekey = '583458414138-95g5d9orqll8ldlc0p693kd25f24a883.apps.googleuser
         ComponentsModule,
         RouterModule,
         AppRoutingModule,
-        AgmCoreModule.forRoot({
-            apiKey: 'YOUR_GOOGLE_MAPS_API_KEY'
-        }),
+
         SocialLoginModule, MatTableModule
     ],
     declarations: [
         AppComponent,
         AdminLayoutComponent,
         LoginComponent,
+
 
 
     ],
@@ -62,16 +60,18 @@ const googlekey = '583458414138-95g5d9orqll8ldlc0p693kd25f24a883.apps.googleuser
 
                 ]
             } as SocialAuthServiceConfig,
-        }, ServiceOAuthService, {
+        }, {
 
             provide: HTTP_INTERCEPTORS,
             useClass: AuthInterceptorService,
             multi: true
 
-        }, OrderServiceService,CardsServiceService
+        }, OrderServiceService, CardsServiceService, UrlAPI
     ],
     exports: [
-        OrdenCompraComponent
+
+
+
     ],
     bootstrap: [AppComponent]
 })

@@ -1,0 +1,194 @@
+<div class="main-content" style="width: 100%">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div (click)="confirmarRequerimiento()" *ngIf="this.rol=='1' && this.op==1 && data.estado=='PENDIENTE'"
+                         class="card-header card-header-danger"
+                         style="cursor: pointer">
+                        <h4 class="card-title" style="text-align: center">Confirmar Requerimiento compra</h4>
+
+                    </div>
+                    <div (click)="confirmarRequerimientoReciboTraslado()" *ngIf="this.rol=='1' && this.op==3 && data.estado=='REVISADO_CONFIRMADO' "
+                         class="card-header card-header-danger"
+                         style="cursor: pointer">
+                        <h4 class="card-title" style="text-align: center">Confirmar Requerimiento de traslado</h4>
+
+                    </div>
+
+
+
+                    <div class="card-body">
+                        <form>
+                        <h4>Detalle del requerimiento</h4>
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <mat-form-field class="example-full-width">
+                                        <h4>Codigo requerimiento </h4>
+                                        <input disabled matInput type="text"
+                                               value="{{data.codigo}}">
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <mat-form-field class="example-full-width">
+                                        <h4>Trabajador que solicito el requerimiento</h4>
+                                        <input [disabled]="op==1" matInput type="text"
+                                               value="{{data.trabajador}}">
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <mat-form-field class="example-full-width">
+                                        <h4>Supervisor que atendio el requerimiento</h4>
+                                        <input [disabled]="op==1" matInput type="text"
+                                               value="{{data.supervisor}}">
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <mat-form-field class="example-full-width">
+                                        <h4>Fecha emision </h4>
+                                        <input [disabled]="op==1" matInput type="text"
+                                               value="{{data.fechaEmision}}">
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <mat-form-field class="example-full-width">
+                                        <h4>Fecha entrega </h4>
+                                        <input [disabled]="op==1" matInput type="text"
+                                               value="{{data.fechaEntrega}}">
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <mat-form-field class="example-full-width">
+                                        <h4>Area que pide requerimiento</h4>
+                                        <input [disabled]="op==1" matInput type="text"
+                                               value="{{data.areaPide}}">
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <mat-form-field class="example-full-width">
+                                        <h4> Almacen que pide el requerimiento</h4>
+                                        <input [disabled]="op==1" matInput type="text"
+                                               value="{{data.almacenPide}}">
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <mat-form-field class="example-full-width">
+                                        <h4>Almacen que recibe el requerimiento</h4>
+                                        <input [disabled]="op==1" matInput type="text"
+                                               value="{{data.almacenRecibe}}">
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <mat-form-field class="example-full-width">
+                                        <h4>Estado  </h4>
+                                        <input [disabled]="op==1" matInput type="text"
+                                               value="{{data.estado}}">
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+
+                                    <mat-form-field class="example-full-width">
+                                        <h4>Observaciones</h4>
+                                        <textarea [disabled]="op==1"    matInput >
+                                            {{data.observaciones}}
+                                        </textarea>
+                                    </mat-form-field>
+                                </div>
+
+                            </div>
+
+
+
+
+
+                        </form>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-md-12">
+                <table [dataSource]="this.detalles" class="mat-elevation-z8" mat-table>
+
+
+                    <ng-container matColumnDef="codigo">
+                        <th *matHeaderCellDef mat-header-cell> Codigo</th>
+                        <td *matCellDef="let element" mat-cell> {{element.codigoProducto}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="descripcion">
+                        <th *matHeaderCellDef mat-header-cell> Descripcion</th>
+                        <td *matCellDef="let element" mat-cell> {{element.descripcion}} </td>
+                    </ng-container>
+
+
+                    <ng-container matColumnDef="cantidad">
+                        <th *matHeaderCellDef mat-header-cell>Cantidad </th>
+                        <td *matCellDef="let element" mat-cell> {{element.cantidad}} </td>
+                    </ng-container>
+
+
+
+
+                    <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
+                    <tr *matRowDef="let row; columns: displayedColumns;" mat-row></tr>
+                </table>
+            </div>
+
+            <div><br></div>
+        </div>
+        <div>
+            <br>
+        </div>
+    </div>
+</div>
+
+

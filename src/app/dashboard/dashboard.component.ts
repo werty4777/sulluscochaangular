@@ -21,7 +21,13 @@ export interface cardData {
 export class DashboardComponent implements OnInit {
 
 
-    private data: cardData;
+    private data: cardData={
+        entrada:0,
+        salida:0,
+        cantidad:0,
+        req:0
+
+    };
 
     constructor(private http: ServiceOAuthService, private cardService: CardsServiceService) {
 
@@ -88,7 +94,7 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
 
-        this.DataCards();
+        //this.DataCards();
         const dataDailySalesChart: any = {
             labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
             series: [

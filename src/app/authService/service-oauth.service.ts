@@ -2,9 +2,10 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {UserProfile} from '../model/UserProfile';
+import {UrlAPI} from '../Services/urlAPI';
 
 declare var gapi: any;
-const uri = 'https://b18e5634e8b2.ngrok.io/';
+
 
 @Injectable({
     providedIn: 'root'
@@ -17,7 +18,7 @@ export class ServiceOAuthService {
     state = {isSignedIn: null};
 
 
-    constructor(private router: Router, private http: HttpClient) {
+    constructor(private router: Router, private http: HttpClient, private URL: UrlAPI) {
 
     }
 
@@ -64,6 +65,7 @@ export class ServiceOAuthService {
                 user => {
 
                     localStorage.setItem('gmail', 'true');
+                    localStorage.setItem('rol','1');
                     // @ts-ignore
                     localStorage.setItem('token', JSON.stringify(user.xc.access_token));
                     this.user = user
@@ -115,7 +117,7 @@ export class ServiceOAuthService {
 
     check() {
 
-        return this.http.get(uri + 'oauth/check');
+        return this.http.get(this.URL.getURL() + 'oauth/check');
     }
 
 

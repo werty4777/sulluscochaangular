@@ -3,7 +3,6 @@ import {MatDialog} from '@angular/material/dialog';
 import {ModalComponent} from '../modal/modal.component';
 
 
-
 @Component({
     selector: 'app-sticky',
     templateUrl: './sticky.component.html',
@@ -25,6 +24,7 @@ export class StickyComponent implements OnInit {
         this.dialog.open(ModalComponent, {
             data: {
                 data: this.nameComponent
+
             }
         })
     }
