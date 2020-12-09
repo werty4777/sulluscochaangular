@@ -40,5 +40,12 @@
 
     </ng-container>
 
+    <ng-container *ngIf="'ORDENESDETALLES'==this.data.data">
+
+
+        <app-ordenes-modal [codigo]="this.data.codigo"></app-ordenes-modal>
+
+    </ng-container>
+
 
 </div>

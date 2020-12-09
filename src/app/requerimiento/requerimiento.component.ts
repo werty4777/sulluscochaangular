@@ -41,7 +41,7 @@ export class RequerimientoComponent implements OnInit {
     }
 
 
-    editarRequerimiento(componente, codigo, tipo) {
+    editarRequerimiento(componente, codigo, tipo?) {
         this.dialog.open(ModalComponent, {
             data: {
                 data: componente,
@@ -58,7 +58,7 @@ export class RequerimientoComponent implements OnInit {
 
     }
 
-    verRequerimiento(componente, codigo, tipo) {
+    verRequerimiento(componente, codigo, tipo?) {
         this.dialog.open(ModalComponent, {
             data: {
                 data: componente,
@@ -84,6 +84,7 @@ export class RequerimientoComponent implements OnInit {
         this.dialog.afterAllClosed.subscribe(value => {
 
             this.cargarTodo();
+            console.log("Se cargo todo")
 
         })
     }

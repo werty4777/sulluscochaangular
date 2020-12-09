@@ -21,6 +21,10 @@ import {ComponentsModule} from '../../components/components.module';
 import {HttpClientModule} from '@angular/common/http';
 import {RequerimientoComponent} from '../../requerimiento/requerimiento.component';
 import {MovimientosComponent} from '../../movimientos/movimientos.component';
+import {OrdenesComponent} from '../../ordenes/ordenes.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginator, MatPaginatorModule} from '@angular/material/paginator';
+import {ReportTablaComponent} from '../../reporte/report-tabla/report-tabla.component';
 
 @NgModule({
     imports: [
@@ -34,7 +38,10 @@ import {MovimientosComponent} from '../../movimientos/movimientos.component';
         MatInputModule,
         MatSelectModule,
         MatTooltipModule,
-        ComponentsModule, HttpClientModule
+        ComponentsModule, HttpClientModule,MatTableModule,MatPaginatorModule
+    ],
+    exports: [
+        OrdenesComponent
     ],
     declarations: [
         DashboardComponent,
@@ -44,7 +51,7 @@ import {MovimientosComponent} from '../../movimientos/movimientos.component';
         IconsComponent,
         MapsComponent,
         NotificationsComponent,
-        RequerimientoComponent, MovimientosComponent
+        RequerimientoComponent, MovimientosComponent, OrdenesComponent,ReportTablaComponent
 
     ]
 })

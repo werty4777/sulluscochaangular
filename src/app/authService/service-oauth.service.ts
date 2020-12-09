@@ -38,7 +38,7 @@ export class ServiceOAuthService {
         return pload.then(async () => {
             await gapi.auth2
                 .init({
-                    client_id: '583458414138-ve02jfni5hat2f1aqs3lpol8kv8j229t.apps.googleusercontent.com',
+                    client_id: '583458414138-ktvu19p22476kqobfauu66r5olulppjg.apps.googleusercontent.com',
                     scope: 'https://www.googleapis.com/auth/userinfo.profile',
 
 

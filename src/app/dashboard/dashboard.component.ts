@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import * as Chartist from 'chartist';
 import {ServiceOAuthService} from '../authService/service-oauth.service';
 import {CardsServiceService} from '../Services/cards-service.service';
+import {ModalComponent} from '../components/modal/modal.component';
+import {MatDialog} from '@angular/material/dialog';
 
 export interface cardData {
 
@@ -21,15 +23,21 @@ export interface cardData {
 export class DashboardComponent implements OnInit {
 
 
-    private data: cardData={
-        entrada:0,
-        salida:0,
-        cantidad:0,
-        req:0
+    espera;
+    aceptado;
+    rechazado;
+
+
+    lastProduct: any;
+    private data: cardData = {
+        entrada: 0,
+        salida: 0,
+        cantidad: 0,
+        req: 0
 
     };
 
-    constructor(private http: ServiceOAuthService, private cardService: CardsServiceService) {
+    constructor(public dialog: MatDialog,private http: ServiceOAuthService, private cardService: CardsServiceService) {
 
 
     }
@@ -94,7 +102,7 @@ export class DashboardComponent implements OnInit {
 
     ngOnInit() {
 
-        //this.DataCards();
+        this.DataCards();
         const dataDailySalesChart: any = {
             labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
             series: [
@@ -173,7 +181,6 @@ export class DashboardComponent implements OnInit {
         this.startAnimationForBarChart(websiteViewsChart);
 
 
-
     }
 
 
@@ -191,7 +198,7 @@ export class DashboardComponent implements OnInit {
                     this.cardService.getCountRequerimientos().subscribe(value3 => {
 
 
-                         this.data = {
+                        this.data = {
                             // @ts-ignore
                             req: <number>value3.data,
                             cantidad: <number>value2.data,
@@ -212,6 +219,40 @@ export class DashboardComponent implements OnInit {
         });
 
 
+        this.cardService.ultimosProductos().subscribe(value => {
+
+            this.lastProduct = value;
+
+        })
+
+        this.cardService.requerimientoAceptado().subscribe(value => {
+
+            this.aceptado = value;
+            this.cardService.requerimientoEspera().subscribe(value1 => {
+
+                this.espera = value1;
+                this.cardService.requerimientoRechazado().subscribe(value2 => {
+                    this.rechazado = value2;
+                })
+            })
+
+
+        });
     }
 
+    verRequerimiento( codigo, tipo) {
+        this.dialog.open(ModalComponent, {
+            data: {
+                data: "detalles",
+                codigo: codigo,
+                tipo: tipo
+            }
+        })
+
+        this.dialog.afterAllClosed.subscribe(value => {
+
+            this.DataCards();
+
+        })
+    }
 }

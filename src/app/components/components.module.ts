@@ -21,6 +21,8 @@ import {ModalEditarRequerimientoComponent} from '../requerimiento/modal-editar-r
 import {SalidaModalComponent} from '../movimientos/salida-modal/salida-modal.component';
 import {EntradaModalComponent} from '../movimientos/entrada-modal/entrada-modal.component';
 import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
+import { SearchComponent } from './search/search.component';
+import {OrdenesModalComponent} from '../ordenes/ordenes-modal/ordenes-modal.component';
 
 @NgModule({
     imports: [
@@ -37,7 +39,8 @@ import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
         StickyComponent,
         ModalComponent,
         OrdenCompraComponent,
-        ModalRequerimientoComponent, ModalEditarRequerimientoComponent,SalidaModalComponent,EntradaModalComponent
+        ModalRequerimientoComponent, ModalEditarRequerimientoComponent,SalidaModalComponent,EntradaModalComponent, SearchComponent,
+        OrdenesModalComponent
     ],
     exports: [
         FooterComponent,
@@ -45,7 +48,8 @@ import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
         SidebarComponent,
         StickyComponent,
 
-    ]
+    ],
+
 })
 export class ComponentsModule {
 }

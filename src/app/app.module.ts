@@ -13,15 +13,14 @@ import {AppComponent} from './app.component';
 import {LoginComponent} from './login/login.component';
 import {GoogleLoginProvider, SocialAuthServiceConfig, SocialLoginModule} from 'angularx-social-login';
 import {AdminLayoutComponent} from './layouts/admin-layout/admin-layout.component';
-import {OrdenCompraComponent} from './productos/orden-compra/orden-compra.component';
 import {MatTableModule} from '@angular/material/table';
 import {OrderServiceService} from './Services/product/orderProduct/order-service.service';
 import {CardsServiceService} from './Services/cards-service.service';
 import {UrlAPI} from './Services/urlAPI';
 import {AuthInterceptorService} from './interceptor/auth-interceptor.service';
-import { EntradaModalComponent } from './movimientos/entrada-modal/entrada-modal.component';
+import {UserServiceComponent} from './authService/user-service/user-service.component';
 
-const googlekey = '583458414138-95g5d9orqll8ldlc0p693kd25f24a883.apps.googleusercontent.com';
+const googlekey = '583458414138-ktvu19p22476kqobfauu66r5olulppjg.apps.googleusercontent.com';
 
 
 @NgModule({
@@ -41,7 +40,7 @@ const googlekey = '583458414138-95g5d9orqll8ldlc0p693kd25f24a883.apps.googleuser
         AppComponent,
         AdminLayoutComponent,
         LoginComponent,
-
+        UserServiceComponent,
 
 
     ],
@@ -68,11 +67,7 @@ const googlekey = '583458414138-95g5d9orqll8ldlc0p693kd25f24a883.apps.googleuser
 
         }, OrderServiceService, CardsServiceService, UrlAPI
     ],
-    exports: [
-
-
-
-    ],
+    exports: [],
     bootstrap: [AppComponent]
 })
 export class AppModule {

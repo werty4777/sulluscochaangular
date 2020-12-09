@@ -5,6 +5,56 @@ import {NecesidadCompraRequerimiento} from '../../model/necesidadCompraRequerimi
 import {NoStockCompraRequerimiento} from '../../model/noStockCompraRequerimiento';
 import {NoStockTrasladoRequerimiento} from '../../model/noStockTrasladoRequerimiento';
 import {Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {ProductModel} from '../../model/productModel';
+
+export interface Data {
+    codigo: string;
+    condicionPago: string;
+    correo: string;
+    direccionEntrega: string;
+    estadoOrden: string;
+    fechaEntrega: string;
+    fechaOrden: string;
+    moneda: string;
+    proveedor: string;
+    numeroComprobante: string;
+    observaciones: string;
+    telefono: string;
+    ruc: string;
+    almacen: string;
+    codigoRequerimiento: string;
+    usuarioEmite: string;
+    direccion: string;
+    formaPago: string;
+}
+
+export interface IdTipo {
+    idTipo: number;
+    tipoProducto: string;
+}
+
+export interface Detalle {
+    idDetalles: number;
+    codigoProducto: string;
+    nombre: string;
+    talla: string;
+    color: string;
+    modelo: string;
+    marca: string;
+    idTipo: IdTipo;
+    cantidad: number;
+    unidadMedida: string;
+    precioUnitario: number;
+    descuento: number;
+    subTotal: number;
+}
+
+export interface BaseObject {
+    data: Data;
+    detalles: Detalle[];
+}
+
 
 @Injectable({
     providedIn: 'root'
@@ -45,10 +95,10 @@ export class RequerimientoService {
     }
 
 
-    buscarProducto(nombre) {
+    buscarProducto(nombre, id): Observable<any> {
 
 
-        return this.http.get(this.url.getURL() + 'inventario/product/search/' + nombre);
+        return this.http.get(this.url.getURL() + 'inventario/product/search/' + nombre + '?id=' + id);
 
     }
 
@@ -115,5 +165,60 @@ export class RequerimientoService {
 
         return this.http.post(this.url.getURL() + 'inventario/entrada/confirmar/' + codigo, empleado);
 
+    }
+
+    cargarOrdenes() {
+
+        return this.http.get(this.url.getURL() + 'inventario/order');
+
+    }
+
+    detallesOrdenes(codigo: any): Observable<BaseObject> {
+
+
+        return this.http.get(this.url.getURL() + 'inventario/order/detalles/' + codigo).pipe(map((value: BaseObject) => {
+
+
+            return value;
+
+
+        }));
+    }
+
+
+    crearOrdenCompraNoStock(data) {
+
+
+        return this.http.post(this.url.getURL() + 'inventario/order/nostock', data);
+    }
+
+
+    cargarRequerimientoOrdenDeCompraListCombo() {
+
+
+        return this.http.get(this.url.getURL() + 'inventario/requerimiento/ordencompra');
+    }
+
+    confirmarOrden(param: { codigoOrden: any }) {
+
+
+        return this.http.post(this.url.getURL() + 'inventario/order/compra/confirmar', param);
+
+
+    }
+
+    confirmarEntraCompra(codigo, data) {
+        return this.http.post(this.url.getURL() + 'inventario/entrada/confirmar/compra/' + codigo, data);
+    }
+
+    cargarEmpleados() {
+        return this.http.get(this.url.getURL() + 'user/empleado/');
+    }
+
+    cargarProductos(): Observable<ProductModel[]> {
+        return this.http.get(this.url.getURL() + 'inventario/product/all').pipe(map((value: ProductModel[]) => {
+
+            return value;
+        }));
     }
 }

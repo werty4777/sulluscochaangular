@@ -10,23 +10,33 @@ import {RequerimientoService} from '../../Services/Requerimiento/requerimiento.s
 export class EntradaModalComponent implements OnInit {
 
 
-    columnasCompra: string[] = ['item', ''];
+    columnasCompra: string[] = ['item', 'nombre', 'talla', 'marca', 'color', 'modelo', 'unidadMedida', 'cantidad', 'total'];
     columnasTraslado: string[] = ['item', 'nombre', 'talla', 'marca', 'color', 'modelo', 'unidadMedida', 'cantidad', 'total'];
 
 
     @Input()
     tipoEntrada: number;
 
+
+    listaEmpleado;
+
     @Input()
     codigo: number;
 
-    data;
+    data=[];
+    usuarioseleccionado: any;
 
     constructor(public dialog: MatDialog, private req: RequerimientoService) {
     }
 
     ngOnInit(): void {
         this.cargarData();
+        this.req.cargarEmpleados().subscribe(value => {
+            console.log(value);
+            this.listaEmpleado = value;
+            console.log(this.listaEmpleado)
+        })
+
     }
 
     cargarData() {
@@ -34,16 +44,34 @@ export class EntradaModalComponent implements OnInit {
         this.req.buscarEntrada(this.codigo, this.tipoEntrada).subscribe(value => {
 
             this.data = value;
-            console.log(this.data.data.detallesList);
-            console.log(this.data.data.detallesList.length)
+            console.log(this.data);
 
         })
     }
 
-    confirmarEntrada() {
-        this.req.confirmarEntrada(this.codigo, '113535745231940775004').subscribe(value => {
+    confirmarEntradaTraslado() {
+        this.req.confirmarEntrada(this.codigo, this.usuarioseleccionado).subscribe(value => {
 
         });
         this.dialog.closeAll();
+    }
+
+    confirmarEntrada() {
+
+        const empleado = {
+            idEmpleado: this.usuarioseleccionado
+        };
+
+
+        console.log(empleado);
+        this.req.confirmarEntraCompra(this.codigo, empleado).subscribe(value => {
+
+        });
+    }
+
+    seleccionarUsuario(iduser) {
+        console.log(iduser)
+        alert(iduser)
+        this.usuarioseleccionado = iduser;
     }
 }

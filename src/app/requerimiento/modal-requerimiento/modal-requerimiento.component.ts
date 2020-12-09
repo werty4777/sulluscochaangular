@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog} from '@angular/material/dialog';
-import {FormArray, FormControl, FormGroup} from '@angular/forms';
+import {FormArray, FormControl, FormGroup, Validators} from '@angular/forms';
 import {RequerimientoService} from '../../Services/Requerimiento/requerimiento.service';
 import {detallesCompraRequerimientoNecesidad, NecesidadCompraRequerimiento} from '../../model/necesidadCompraRequerimiento';
 import {DatosBuscador} from '../../model/datosBuscador';
@@ -92,6 +92,7 @@ export class ModalRequerimientoComponent implements OnInit {
     }
 
     ngOnInit(): void {
+        console.log(this.almacen);
         this.requerimentoService.getTipo().subscribe(value => {
 
             this.tipo = value;
@@ -103,10 +104,7 @@ export class ModalRequerimientoComponent implements OnInit {
             this.almacen = value;
         })
 
-        this.requerimentoService.cargarArea().subscribe(value => {
-            console.log(value)
-            this.area = value;
-        });
+
     }
 
     agregarRequerimientoNecesidad(fechaentrega, observaciones) {
@@ -151,7 +149,7 @@ export class ModalRequerimientoComponent implements OnInit {
         }, error => {
 
         })
-        alert("REQUERIMIENTO GUARDADO CON EXITO")
+        alert('REQUERIMIENTO GUARDADO CON EXITO')
         this.dialog.closeAll();
 
     }
@@ -181,7 +179,7 @@ export class ModalRequerimientoComponent implements OnInit {
 
 
         const dataReq: NoStockCompraRequerimiento = {
-            condicionRequerimiento: 'NOSTOCK',
+            condicionRequerimiento: 'NOSTOCKCOMPRA',
             detallesRequerimiento: arrays,
             fechaEmision: fecha,
             fechaEntrega: fechaActual,
@@ -193,14 +191,14 @@ export class ModalRequerimientoComponent implements OnInit {
         }, error => {
 
         })
-        alert("REQUERIMIENTO GUARDADO CON EXITO")
+        alert('REQUERIMIENTO GUARDADO CON EXITO')
         this.dialog.closeAll();
 
 
     }
 
 
-    agregarRequerimientoNoStockTraslado(fechaentrega, observaciones, almacenes, areas) {
+    agregarRequerimientoNoStockTraslado(fechaentrega, observaciones, almacenes) {
 
         const date = new Date(fechaentrega);
 
@@ -225,7 +223,6 @@ export class ModalRequerimientoComponent implements OnInit {
 
         const dataReq: NoStockTrasladoRequerimiento = {
             idAlmacenEntrega: almacenes,
-            idArea: areas,
             condicionRequerimiento: 'NOSTOCK',
             detallesRequerimiento: arrays,
             fechaEmision: fecha,
@@ -240,6 +237,7 @@ export class ModalRequerimientoComponent implements OnInit {
 
         })
 
+        alert('requerimiento guardado con exito')
         this.dialog.closeAll();
 
 
@@ -267,7 +265,7 @@ export class ModalRequerimientoComponent implements OnInit {
         this.data = [...this.myformArray.controls];
     }
 
-    addNoStock(id, nombre) {
+    addNoStock(id, nombre, cantidad) {
         const newGroup = new FormGroup({});
         this.columnasNoStockCompraFields.forEach(x => {
 
@@ -279,7 +277,10 @@ export class ModalRequerimientoComponent implements OnInit {
                 }))
             }
             if (x == 'cantidad') {
-                newGroup.addControl(x, new FormControl())
+                newGroup.addControl(x, new FormControl({
+                    value: Number(cantidad),
+                    disabled: false
+                }, Validators.max(Number(cantidad))))
             }
             if (x == 'nombre') {
                 newGroup.addControl(x, new FormControl({
@@ -295,51 +296,29 @@ export class ModalRequerimientoComponent implements OnInit {
         this.dataSource = [...this.myFormArrayNoStock.controls];
     }
 
-    buscar(dato) {
+    buscar(datos) {
 
-        this.datosBuscador = [];
-        if (dato != '') {
+        const valor = {
+            idProducto: datos.idFeatures.idProducto,
+            talla: datos.idFeatures.talla,
+            modelo: datos.idFeatures.modelo,
+            marca: datos.idFeatures.marca,
+            color: datos.idFeatures.color,
+            nombre: datos.descripcion,
+            cantidad: <number>datos.cantidad
 
-
-            this.estadoBuscador = true
-            this.requerimentoService.buscarProducto(dato).subscribe((value) => {
-
-                // @ts-ignore
-                value.forEach(datos => {
-
-
-                    let valor = {
-                        idProducto: datos.idFeatures.idProducto,
-                        talla: datos.idFeatures.talla,
-                        modelo: datos.idFeatures.modelo,
-                        marca: datos.idFeatures.marca,
-                        color: datos.idFeatures.color,
-                        nombre: datos.descripcion
-
-
-                    };
-                    this.datosBuscador.push(valor);
-                    console.log(this.datosBuscador);
-                    //console.log(this.datosBuscador);
-                    console.log('termino el dato')
-
-                })
-
-            })
-
-
-        } else {
-            this.estadoBuscador = false;
-        }
-
-        console.log(dato);
+        };
+        this.datosBuscador.push(valor);
+        console.log(datos);
+        console.log(valor.cantidad)
+        this.seleccionarProducto(valor.idProducto, valor.nombre, valor.cantidad);
 
 
     }
 
-    seleccionarProducto(idProducto, nombre) {
+    seleccionarProducto(idProducto, nombre, cantidad) {
 
-        this.addNoStock(idProducto, nombre);
+        this.addNoStock(idProducto, nombre, cantidad);
 
     }
 
