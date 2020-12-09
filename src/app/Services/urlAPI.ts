@@ -8,6 +8,6 @@ export class UrlAPI {
 
 
     getURL(): string {
-        return 'http://localhost:7890/';
+        return ' https://6cbb66ef66fe.ngrok.io/';
     }
 }
