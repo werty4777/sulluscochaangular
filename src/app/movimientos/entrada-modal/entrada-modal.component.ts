@@ -65,8 +65,9 @@ export class EntradaModalComponent implements OnInit {
 
         console.log(empleado);
         this.req.confirmarEntraCompra(this.codigo, empleado).subscribe(value => {
-
+            alert("entrada confirmada");
         });
+        this.dialog.closeAll();
     }
 
     seleccionarUsuario(iduser) {
