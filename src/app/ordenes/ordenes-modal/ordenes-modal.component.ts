@@ -37,8 +37,10 @@ export class OrdenesModalComponent implements OnInit {
 
     confirmarOrden() {
         this.req.confirmarOrden({codigoOrden: this.codigo}).subscribe(value => {
-
+alert("Orden confirmada");
         });
+        
+        this.dialog.closeAll();
     }
 
     async cargarDatos() {
