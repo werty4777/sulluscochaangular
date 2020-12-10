@@ -8,6 +8,6 @@ export class UrlAPI {
 
 
     getURL(): string {
-        return ' https://6cbb66ef66fe.ngrok.io/';
+        return ' https://3f5257d7dc34.ngrok.io/';
     }
 }
